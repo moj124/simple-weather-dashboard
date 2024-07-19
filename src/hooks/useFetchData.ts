@@ -8,7 +8,7 @@ const initialQueryState = {
     response: null,
 };
 
-const useFetchData = <T>(search: string | null, endPointParams: string) => {
+const useFetchData = <T>(search: string, endPointParams: string) => {
     const [query, setQuery] = useState<QueryType<T>>(initialQueryState);
     const hasMounted = useRef(false);
 

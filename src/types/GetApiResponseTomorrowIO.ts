@@ -1,16 +1,16 @@
 interface GetApiResponseTomrrowIO<T> {
-    data: T;
-    meta: Meta;
-    links: Links;
-  }
+  data: T;
+  meta?: Meta;
+  links?: Links;
+}
   
-  interface Meta {
-    totalItems: number;
-  }
+interface Meta {
+  totalItems: number;
+}
   
-  interface Links {
-    self: string;
-  }
+interface Links {
+  self: string;
+}
   
-  export default GetApiResponseTomrrowIO;
+export default GetApiResponseTomrrowIO;
   

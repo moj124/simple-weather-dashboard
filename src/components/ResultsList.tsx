@@ -1,31 +1,42 @@
 import { useEffect, useState } from "react";
-import getApiResponse from "../utils/getApiResponse";
-import getLocationParams from "../utils/getLocationParams";
 import useFetchData from "../hooks/useFetchData";
 import getForecastParams from "../utils/getForecastParams";
-import QueryType from "../types/QueryType";
+import GetForecastApiResponse from "../types/Forecast";
 
 interface ResultsListProps {
     location: number[];
 }
 
-const columns = [];
+interface SelectedForecast {
+    time: string,
+    averageTemp: number,
+}
 
 function ResultsList({location}: ResultsListProps) {
-    const [query, setQuery] = useState<QueryType | null>(null);
+    const [filterForecast, setFilterForecast] = useState<SelectedForecast[]>([]);
 
-    const forecastParams = getForecastParams();
-    // const responseData = useFetchData(location.join(','), forecastParams);
-    //TODO filter
-    // setQuery(responseData);
+
+    const forecastParams = getForecastParams(location);
+    const query = useFetchData<GetForecastApiResponse>(location.join(','), forecastParams);
+  
+    useEffect(() => {
+      if (query.response?.data.timelines.daily) {
+        const forecast = query.response.data.timelines.daily.map((elem) => ({
+          time: elem.time,
+          averageTemp: elem.values.temperatureAvg,
+        }));
+        setFilterForecast(forecast);
+      }
+    }, [query.response]);
   return (
     <>
-        {/* {list.map((elem, index) => {
+        {filterForecast.map(({time, averageTemp}, index) => {
             <div key={index} className="">
-                <p>{elem}</p>
+                <h2>{time}</h2>
+                <p>{averageTemp}</p>
                 <div className=""></div>
             </div>
-        })} */}
+        })}
     </>
   )
 }
