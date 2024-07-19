@@ -1,0 +1,23 @@
+.app__input {
+  padding: 15px;
+  width: 100%;
+  border: none;
+}
+
+.app__wrapper {
+  background-color: white;
+  min-width: 100px;
+  display: flex;
+  place-items: center;
+  padding: 10px
+}
+
+.app__icon {
+  min-width: 30px;
+  margin-left: 10px;
+  height: 100%;
+}
+
+pre {
+  color:white
+}
